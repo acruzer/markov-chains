@@ -1,6 +1,6 @@
 """Generate Markov text from text files."""
 
-import random
+from random import choice
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -10,14 +10,9 @@ def open_and_read_file(file_path):
     """
 
     # your code goes here
-    file = open(file_path)
+    contents = open(file_path).read()
 
-    lines_in_file = ""
-    for line in file:
-        line = line.rstrip()
-        lines_in_file = lines_in_file + line + " "
-
-    return lines_in_file
+    return contents
 
 
 def make_chains(text_string):
@@ -44,7 +39,6 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-    new_text = []
     new_text = text_string.split()
 
     chains = {}
@@ -66,14 +60,14 @@ def make_text(chains):
     words = []
 
     dict_keys = sorted(chains)
-    first_words = random.choice(dict_keys)
+    first_words = choice(dict_keys)
 
     a, b = first_words
     words.append(a)
     words.append(b)
 
     #find value of tuple and add to words list
-    next_word = random.choice(chains[first_words])
+    next_word = choice(chains[first_words])
     words.append(next_word)
 
     #check to see if tuple is already a key in dictionary, if not - stop
@@ -83,7 +77,7 @@ def make_text(chains):
         if new_tuple not in dict_keys:
             break
             
-        next_word = random.choice(chains[new_tuple])
+        next_word = choice(chains[new_tuple])
         words.append(next_word)
 
 
