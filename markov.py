@@ -66,16 +66,26 @@ def make_text(chains):
     words = []
 
     dict_keys = sorted(chains)
-    print(random.choice(dict_keys))
+    first_words = random.choice(dict_keys)
 
-    #loop through dictionary
-    #go through tuple
-    #find value
-    #add to words
-    #add next word
-    #print(words)
+    a, b = first_words
+    words.append(a)
+    words.append(b)
 
-    # your code goes here
+    #find value of tuple and add to words list
+    next_word = random.choice(chains[first_words])
+    words.append(next_word)
+
+    #check to see if tuple is already a key in dictionary, if not - stop
+    while True:
+        new_tuple = tuple(words[-2:])
+
+        if new_tuple not in dict_keys:
+            break
+            
+        next_word = random.choice(chains[new_tuple])
+        words.append(next_word)
+
 
     return " ".join(words)
 
@@ -91,7 +101,9 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
+#print(chains)
+
 print(random_text)
 
 #print(input_text)
-make_text(input_text)
+# make_text(input_text)
